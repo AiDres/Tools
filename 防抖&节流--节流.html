@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>节流</title>
+</head>
+<body>
+	<div>0</div>
+	<button>click</button>
+	<script>
+		// 防止恶意（脚本）点击，解决服务器的不断请求
+		var div = document.getElementsByTagName('div')[0];
+		var btn = document.getElementsByTagName('button')[0];
+		function throttle(handler,wait){
+			var lastTime = 0;
+			return function(){
+				var nowTime = new Date().getTime();
+				if(nowTime - lastTime > wait){
+					handler.apply(this,arguments);
+					lastTime = nowTime;
+				};
+			}
+		};
+		function buy(e){
+			console.log(this,e);
+			div.innerText = parseInt(div.innerText)+1;
+		}
+		btn.onclick = throttle(buy,1000)
+	</script>
+</body>
+</html>

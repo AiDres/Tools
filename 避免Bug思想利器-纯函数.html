@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>纯函数</title>
+</head>
+<body>
+	<script>
+		// 纯函数 ---比依靠全局的。必须有返回值才叫纯函数，最好利用克隆
+		var arr = [{name:'wen'}];
+		function add(_arr){
+			var obj = {name:'wen1'};
+			var newArray = [];
+			for(var i=0;i<_arr.length;i++){
+				newArray[i] = Object.assign({},_arr[i]);
+			}
+			newArray.push(obj);
+			return newArray;
+		}
+		var newArray = add(arr);
+		newArray[0].name = 'hh';
+		newArray.push({name:'haha'});
+		console.log(newArray);
+
+		function A(){
+			this.c = 1;
+		}
+		var a = new A();
+		var b = Object.assign({},a);
+		b.c=2;
+		console.log(a.c === b.c);
+	</script>
+</body>
+</html>

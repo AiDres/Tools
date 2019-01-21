@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>防抖</title>
+</head>
+<body>
+	<input type="text" id='inp'>
+	<script>
+		var inp = document.getElementById('inp');
+		function ajax(e){
+
+			console.log(e,this.value)
+		}
+
+		// var timer;
+		// inp.oninput = function(){
+		// 	clearTimeout(timer);
+		// 	var _self = this;
+		// 	timer = setTimeout(function(){
+		// 		ajax.call(_self);
+		// 	},1000);
+		// };
+
+		//封装 
+		function debounce(handler,delay){
+			var timer = null;
+			return function(){
+				var _self = this;
+				var _arg = arguments;
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					ajax.apply(_self,_arg);
+				},delay);
+			}
+		}
+		inp.oninput = debounce(ajax,2000);
+	</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>bind</title>
+	<script src="jquery/jquery-3.3.1.js"></script>
+
+</head>
+<body>
+	<div style="width:100px;height:100px;background: red"></div>
+	<script>
+		// bind 改变this 指向并返回新的函数
+		var list = {
+			init : function(){
+				this.message = 'hello';
+				this.bindEvent();
+			},
+			bindEvent : function(){
+				//this = list;
+				var oDiv =document.getElementsByTagName('div')[0];
+				oDiv.onclick=this.show.bind(this);
+			},
+			show : function(e){
+				console.log(e.target,this);
+			}
+		};
+		list.init();
+
+		//案例二
+		// var value = 0;
+		// var obj = {
+		// 	value :1
+		// };
+		// function show(name,age){
+		// 	console.log(this.value);
+		// 	console.log(name,age);
+		// };
+		// var newShow = show.bind(obj);
+		// // //可传实参
+		// var newShow = show.bind(obj,'kit',18) 
+		// newShow();
+
+		// // new newShow();--->创建一个新对象，但由于新对象里没有value这个属性，所以是undefined。
+
+
+		// //案例三
+		// Function.prototype.newBind = function(target){
+		// 	//arguments[0] = target = obj
+		// 	var target = target || window;
+		// 	// this = show
+		// 	var self = this;
+		// 	// ['cst'];
+		// 	var args = [].slice.call(arguments,1);
+		// 	return function(){
+		// 		//18
+		// 		var _arg = [].slice.call(arguments,0);
+		// 		return self.apply(target,args.concat(_arg));
+		// 	}
+		// }
+
+		// var value = 0;
+		// var obj = {
+		// 	value :1
+		// };
+		// function show(name,age){
+		// 	console.log(this.value);
+		// 	console.log(name,age);
+		// };
+		// var newShow = show.newBind(obj,'cst');
+		// newShow(18);
+
+		// //升级版
+
+		// Function.prototype.newBind = function(target){
+		// 	//arguments[0] = target = obj
+		// 	var target = target || window;
+		// 	// this = show
+		// 	var self = this;
+		// 	// ['cst'];
+		// 	var args = [].slice.call(arguments,1);
+		// 	var temp = function(){};
+		// 	var f = function(){
+		// 		//18
+		// 		var _arg = [].slice.call(arguments,0);
+		// 		return self.apply(target,args.concat(_arg));
+		// 	}
+		// 	temp.prototype = this.prototype;
+		// 	f.prototype = new temp();
+		// 	return f;
+
+		// }
+		// FatherShow.prototype.lastName='ye';
+		// function FatherShow(){};
+		// show.prototype = new FatherShow();
+		// var value = 0;
+		// var obj = {
+		// 	value :1
+		// };
+		// function show(name,age){
+		// 	console.log(this.value);
+		// 	console.log(name,age);
+		// };
+		// var newShow = show.newBind(obj,'cst');
+		// // newShow(18);
+		// var os = new newShow(18);
+		// console.log(os.lastName);
+
+
+	</script>
+</body>
+</html>
